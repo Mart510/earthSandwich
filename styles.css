@@ -1,0 +1,17 @@
+body {
+    /*Responsive sizing*/
+    display: flex;
+    flex-direction: column;
+    /*Background color*/
+    background-color: #005F6A ;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Bevan', serif;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 4em;
+    color: whitesmoke;
+    height: fit-content;
+    margin: 0.1em;
+}
