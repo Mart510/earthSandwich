@@ -8,12 +8,10 @@
     // Memphis is located at approximately 90° West longitude, so we take 180-90=90.
     // This new 90° we convert to degrees East (from the Western Hemisphere to the Eastern Hemisphere, from degrees west of Greenwich to degrees east of Greenwich) and we have our location of Memphis' antipode -35°S 90°E.
 
-// Example 1 - Milton Keynes, Lat = 52.04, Long = -0.76
+// Milton Keynes, Lat = 52.04, Long = -0.76
     // Antipode result = 52.04° South 179.24° West
-// Example 2 - Memphis, Lat = 35.105, Long = -89.98
-// Antipode result = -35.1046° South, 90.0227 West
 
-function calculateAntipode(latitude, longitude) {
+export function calculateAntipode(latitude, longitude) {
     // Convert degrees to radians
     const latRad = (latitude * Math.PI) / 180;
     const longRad = (longitude * Math.PI) / 180;
@@ -39,7 +37,7 @@ function calculateAntipode(latitude, longitude) {
     };
   }
   
-  // Example usage:
+  // test usage:
   const latitude = 52.04; // Milton Keynes
   const longitude = -.76; // Milton Keynes
   const antipode = calculateAntipode(latitude, longitude);
