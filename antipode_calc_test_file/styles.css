@@ -5,6 +5,18 @@ body {
     /*Background color*/
     background-color: #005F6A ;
     text-align: center;
+
+}
+
+.cardHolder {
+    display: flex;
+    flex-direction: row; /* Display cards side by side */
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: transparent;
+    width: 100%;
+    height: fit-content;
 }
 
 h1 {
@@ -16,4 +28,46 @@ h1 {
     margin: 0.1em;
 }
 
-#map { height: 180px; }
+h3 {
+    font-family: 'Bevan', serif;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1em;
+    color: whitesmoke;
+    height: fit-content;
+    margin: 0.1em;
+}
+
+h5 {
+    font-family: 'Bevan', serif;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1em;
+    color: whitesmoke;
+    height: fit-content;
+    margin: 0.1em;
+}
+
+label {
+    font-family: 'Bevan', serif;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1em;
+    color: whitesmoke;
+    height: fit-content;
+    margin: 0.1em;
+    width: 100%;
+}
+
+.card {
+    border-radius: 18%;
+    width: 10em;
+    height: 10em;
+    background-color: #343541;
+    margin: 3%;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

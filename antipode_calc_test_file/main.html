@@ -6,8 +6,6 @@
     <!-- Main styling CSS -->
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bevan&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <title>Earth Sandwich</title>
 </head>
 <body>
@@ -15,10 +13,32 @@
     <div></div>
     <!-- Leaflet Div -->
     <div id="map"></div>
-
+    <div id="cardHolder">
+        <div class="card" >
+            <div class="card-content">
+                <h3>Enter long and lattitude</h3>
+                    <label for="lattitude">Lattitude:</label>
+                    <input type="text" id="lattitude">
+                    <br>
+                    <label for="longitude">Longitude:</label>
+                    <input type="text" id="longitude">
+                    <br>
+                    <button type="submit" id="submit">Find my Antipode</button>
+            </div>
+        </div>
+        <div class="card" >
+            <div class="card-content">
+                <h3>Your antipode</h3>
+                    <h5>Lattitude</h5>
+                    <h5 id="antiLat"></h5>
+                    <br>
+                    <h5>Longitude</h5>
+                    <h5 id="antiLong"></h5>
+                    <br>
+            </div>
+    </div>
+    </div>
     <!-- Main js file, continas antipode calc function -->
-    <script src="scripts.js"></script>
-    <!-- Leaflet Script -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="antiPodeCalc.js"></script>
 </body>
 </html>
