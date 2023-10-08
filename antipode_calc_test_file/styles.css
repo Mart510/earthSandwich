@@ -8,7 +8,7 @@ body {
 
 }
 
-.cardHolder {
+#cardHolder {
     display: flex;
     flex-direction: row; /* Display cards side by side */
     justify-content: space-evenly;
@@ -57,11 +57,13 @@ label {
 }
 
 .card {
-    border-radius: 18%;
-    width: 10em;
-    height: 10em;
+    border-radius: 30%;
+    min-width: 100px;
+    max-width: 30%;
+    height: 25vh;
     background-color: #343541;
     margin: 3%;
+    padding: 8%;
 }
 
 .card-content {
