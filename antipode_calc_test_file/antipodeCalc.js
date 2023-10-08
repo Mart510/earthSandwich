@@ -10,8 +10,7 @@
 
 // Milton Keynes, Lat = 52.04, Long = -0.76
     // Antipode result = 52.04° South 179.24° West
-
-export function calculateAntipode(latitude, longitude) {
+function calculateAntipode(latitude, longitude) {
     // Convert degrees to radians
     const latRad = (latitude * Math.PI) / 180;
     const longRad = (longitude * Math.PI) / 180;
@@ -43,6 +42,6 @@ export function calculateAntipode(latitude, longitude) {
   const antipode = calculateAntipode(latitude, longitude);
   // Expected return values are lat: -52.04 Long: 179.24
   
-  console.log("Antipode latitude:", antipode.latitude);
-  console.log("Antipode longitude:", antipode.longitude);
+  //console.log("Antipode latitude:", antipode.latitude);
+  //console.log("Antipode longitude:", antipode.longitude);
   

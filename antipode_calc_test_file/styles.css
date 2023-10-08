@@ -15,3 +15,5 @@ h1 {
     height: fit-content;
     margin: 0.1em;
 }
+
+#map { height: 180px; }
