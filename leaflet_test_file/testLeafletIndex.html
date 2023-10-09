@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Tester</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <!-- leaflet css -->
+    <style>
+    #map { height: 100vh; }
+    </style>
+</head>
+<body>
+    <!-- map element -->
+    <div id="map"></div>
+
+    <!-- leaflet Script -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+ crossorigin=""></script>
+<script>
+// intialises the map, it's default view co-ords and zoom level
+let map = L.map('map').setView([52.04, -.76], 8);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+// styles the origin and antipode markers
+const originMarker = L.icon({
+    iconUrl: 'brebTop.png',
+    iconSize: [50, 50]
+});
+const negaMarker = L.icon({
+    iconUrl: 'brebBottom.png',
+    iconSize: [50, 50]
+});
+
+// sets a default marker on milton keynes
+const mkMarker = L.marker([52.04, -.76], {icon: originMarker}).addTo(map);
+// adding a popup to give user information at the marker
+mkMarker.bindPopup("This is your location").openPopup();
+
+// sets a marker on the antipode for milton keynes
+const negaMkMarker = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(map);
+// pop up to give user information
+negaMkMarker.bindPopup('This is your earth sandwich location').openPopup();
+
+</script>
+</body>
+</html>

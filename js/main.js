@@ -1,5 +1,5 @@
 // Import leaflet
-import * as L from 'leaflet';
+import * as L from "./leaflet/leaflet-src.js"
 
 // Initialize a Leaflet map
 const myMap = L.map('map').setView([51.505, -0.09], 13);
