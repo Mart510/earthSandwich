@@ -9,25 +9,40 @@
     crossorigin=""/>
     <!-- leaflet css -->
     <style>
-    #map { height: 100vh; }
+    .map { height: 50vh;
+    #mapHolder {
+        display: flex;
+        flex-direction: row;
+        height: 50vh;
+    }
     </style>
 </head>
 <body>
-    <!-- map element -->
-    <div id="map"></div>
-
+    <div id="mapHolder">
+        <!-- map element -->
+        <div id="originMap" class="map"></div>
+        <div id="antipodeMap" class="map"></div>
+    </div>
     <!-- leaflet Script -->
  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
  crossorigin=""></script>
 <script>
-// intialises the map, it's default view co-ords and zoom level
-let map = L.map('map').setView([52.04, -.76], 8);
+// intialises the orgin map, it's default view co-ords and zoom level
+const leftMap = L.map('originMap').setView([52.04, -.76], 8);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+}).addTo(leftMap);
+
+// intialises the right map, it's default view co-ords and zoom level
+const rightMap = L.map('antipodeMap').setView([-52.04, 179.24], 8);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(rightMap);
 
 // styles the origin and antipode markers
 const originMarker = L.icon({
@@ -40,12 +55,12 @@ const negaMarker = L.icon({
 });
 
 // sets a default marker on milton keynes
-const mkMarker = L.marker([52.04, -.76], {icon: originMarker}).addTo(map);
+const mkMarker = L.marker([52.04, -.76], {icon: originMarker}).addTo(leftMap);
 // adding a popup to give user information at the marker
 mkMarker.bindPopup("This is your location").openPopup();
 
 // sets a marker on the antipode for milton keynes
-const negaMkMarker = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(map);
+const negaMkMarker = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMap);
 // pop up to give user information
 negaMkMarker.bindPopup('This is your earth sandwich location').openPopup();
 
