@@ -134,6 +134,7 @@
  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
  crossorigin=""></script>
 <script>
+////////////////// Leaflet Map //////////////////    
 // intialises the orgin map, it's default view co-ords and zoom level
 const leftMap = L.map('originMap').setView([52.04, -.76], 8);
 
@@ -161,16 +162,16 @@ const negaMarker = L.icon({
 });
 
 // sets a default marker on milton keynes
-const mkMarker = L.marker([52.04, -.76], {icon: originMarker}).addTo(leftMap);
+const originPointer = L.marker([52.04, -.76], {icon: originMarker}).addTo(leftMap);
 // adding a popup to give user information at the marker
-mkMarker.bindPopup("This is your location").openPopup();
+originPointer.bindPopup("This is your location").openPopup();
 
 // sets a marker on the antipode for milton keynes
-const negaMkMarker = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMap);
+const negaPointer = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMap);
 // pop up to give user information
-negaMkMarker.bindPopup('This is your earth sandwich location').openPopup();
+negaPointer.bindPopup('This is your earth sandwich location').openPopup();
 
-// Antipode calculation
+////////////////// Antipode calculation //////////////////
 // Milton Keynes, Lat = 52.04, Long = -0.76
     // Antipode result = 52.04° South 179.24° West
     function calculateAntipode(latitude, longitude) {
@@ -233,8 +234,25 @@ function handleSubmit(event) {
   console.log(`Passes number checker`)
     let negaSpot = calculateAntipode(lat, long);
     console.log(`Antipode lat: ${negaSpot.latitude}\n Antipode long: ${negaSpot.longitude}`)
-    latText.textContent = negaSpot.latitude.toFixed(2);
-    longText.textContent = negaSpot.longitude.toFixed(2);
+    // save calculated results to 2 decimal places
+    const negaLat = negaSpot.latitude.toFixed(2)
+    const negaLong = negaSpot.longitude.toFixed(2)
+    // save lat and long to 2 decimal places
+    const lat2 = lat.toFixed(2);
+    const long2 = long.toFixed(2);
+
+    // update the numbers in the antipode box
+    latText.textContent = negaLat;
+    longText.textContent = negaLong;
+    // update the origin and antipode maps
+    // origin map
+    leftMap.setView[lat, long];
+    originPointer.setLatLng(new L.LatLng(lat2, long2));
+
+    // antipode map
+    rightMap.setView[negaLat, negaLong, 7];
+    negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
+    
   }
 };
 
