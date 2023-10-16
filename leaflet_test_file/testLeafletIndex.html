@@ -83,14 +83,18 @@
             height: 100%;
         }
         /* Leaflet CSS */
-        .map { height: 300px;
-            width: 500px;
+        .map { 
+            height: 50vh;
+            width: 50%;
+            margin: 0 10px;
         }
         #mapHolder {
             display: flex;
             flex-direction: row;
             height: 50vh;
             padding: 3%;
+            justify-content: space-between;
+
         }
         </style>
 </head>
@@ -136,7 +140,7 @@
 <script>
 ////////////////// Leaflet Map //////////////////    
 // intialises the orgin map, it's default view co-ords and zoom level
-const leftMap = L.map('originMap').setView([52.04, -.76], 8);
+const leftMap = L.map('originMap').setView([52.04, -.76], 3);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -144,7 +148,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(leftMap);
 
 // intialises the right map, it's default view co-ords and zoom level
-const rightMap = L.map('antipodeMap').setView([-52.04, 179.24], 8);
+const rightMap = L.map('antipodeMap').setView([-52.04, 179.24], 3);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -169,7 +173,7 @@ originPointer.bindPopup("This is your location").openPopup();
 // sets a marker on the antipode for milton keynes
 const negaPointer = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMap);
 // pop up to give user information
-negaPointer.bindPopup('This is your earth sandwich location').openPopup();
+negaPointer.bindPopup('Earth sandwich location').openPopup();
 
 ////////////////// Antipode calculation //////////////////
 // Milton Keynes, Lat = 52.04, Long = -0.76
@@ -234,23 +238,24 @@ function handleSubmit(event) {
   console.log(`Passes number checker`)
     let negaSpot = calculateAntipode(lat, long);
     console.log(`Antipode lat: ${negaSpot.latitude}\n Antipode long: ${negaSpot.longitude}`)
-    // save calculated results to 2 decimal places
-    const negaLat = negaSpot.latitude.toFixed(2)
-    const negaLong = negaSpot.longitude.toFixed(2)
-    // save lat and long to 2 decimal places
-    const lat2 = lat.toFixed(2);
-    const long2 = long.toFixed(2);
+    // save calculated results to 6 decimal places
+    const negaLat = negaSpot.latitude.toFixed(6)
+    const negaLong = negaSpot.longitude.toFixed(6)
+    // save lat and long to 6 decimal places
+    const lat2 = lat.toFixed(6);
+    const long2 = long.toFixed(6);
 
     // update the numbers in the antipode box
     latText.textContent = negaLat;
     longText.textContent = negaLong;
+
     // update the origin and antipode maps
     // origin map
-    leftMap.setView[lat, long];
+    leftMap.setView[lat2, long2, 3];
     originPointer.setLatLng(new L.LatLng(lat2, long2));
 
     // antipode map
-    rightMap.setView[negaLat, negaLong, 7];
+    rightMap.setView[negaLat, negaLong, 3];
     negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
     
   }
