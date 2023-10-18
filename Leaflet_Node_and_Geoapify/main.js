@@ -1,7 +1,11 @@
-// intialise leaflet.js
+// import leaflet.js and extras
 import './stylesheets/styles.css'
 import 'leaflet/dist/leaflet.css'
 import  L from 'leaflet';
+
+// import geoapifiy
+import '@geoapify/leaflet-address-search-plugin/dist/L.Control.GeoapifyAddressSearch.min.css'
+import '@geoapify/leaflet-address-search-plugin'
 
 // intialise map and position, [lattitude, longitude], zoomLevel
 const leftMap = L.map('originMap').setView([51.854210, -5.124250], 10)
@@ -122,7 +126,6 @@ function handleSubmit(event) {
     // antipode map
     rightMap.setView[negaLat, negaLong, 3];
     negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
-    
   }
 };
 
@@ -131,11 +134,11 @@ submitButton.addEventListener('click', handleSubmit);
 
 
 // geoapify set up
-const apiKEY = '';
-const marker = null;
-/*
+const apiKEY = import.meta.env.GEOAPIKEY
+let marker = null;
+
 // Geoapify address search control
-const addressSearchController = L.control.addressSearch(apiKEY, {
+const addressSearchControl = L.control.addressSearch(apiKEY, {
     position: 'topleft',
     requestCallback: (address) => {
         if (marker) {
@@ -144,8 +147,16 @@ const addressSearchController = L.control.addressSearch(apiKEY, {
         if (!address) {
             return;
         }
+        marker = L.marker([address.lat, address.lon]).addTo(leftMap);
+        if (address.bbox && address.bbox.lat1 !== address.bbox.lat2 && address.bbox.lon1 !== address.bbox.lon2) {
+          leftMap.fitBounds([[address.bbox.lat1, address.bbox.lon1], [address.bbox.lat2, address.bbox.lon2]], { padding: [100, 100] })
+        } else {
+          leftMap.setView([address.lat, address.lon], 15);
+        }
+      },
+      suggestionsCallback: (suggestions) => {
+        console.log(suggestions);
     }
-
 })
-
-*/
+leftMap.addControl(addressSearchControl);
+L.control.zoom({ position: 'bottomright' }).addTo(leftMap);
