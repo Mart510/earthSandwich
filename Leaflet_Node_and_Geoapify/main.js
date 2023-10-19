@@ -6,6 +6,16 @@ import  L from 'leaflet';
 // import geoapifiy
 import '@geoapify/leaflet-address-search-plugin/dist/L.Control.GeoapifyAddressSearch.min.css'
 import '@geoapify/leaflet-address-search-plugin'
+import '@geoapify/geocoder-autocomplete';
+import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
+
+//import geoapify css library
+
+// geoapify api key in .env file
+const geoApiKEY = import.meta.env.VITE_geokey;
+let marker = null;
+
+// debugger // console.log(`API key is ${geoApiKEY}`)
 
 // intialise map and position, [lattitude, longitude], zoomLevel
 const leftMap = L.map('originMap').setView([51.854210, -5.124250], 10)
@@ -13,7 +23,9 @@ const leftMap = L.map('originMap').setView([51.854210, -5.124250], 10)
 // base layer of left map
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    // adding geoapify into this
+    apiKEY: geoApiKEY
 }).addTo(leftMap);
 
 // intialises the right map, it's default view co-ords and zoom level
@@ -130,13 +142,25 @@ function handleSubmit(event) {
 };
 
 //
-submitButton.addEventListener('click', handleSubmit);
+//submitButton.addEventListener('click', handleSubmit);
 
+// check avalible automcomplete options
+const autoCompleteInput = new GeocoderAutocomplete(document.getElementById('autocomplete'), geoApiKEY);
 
-// geoapify set up
-const apiKEY = import.meta.env.GEOAPIKEY
-let marker = null;
+// autocomplete behaviour
+autoCompleteInput.on('select', (location) => {
+  // check selected location here
+  if (originMarker) {
+    originMarker.remove();
+  }
 
+  if (location) {
+    originMarker = L.marker([location.properties.lat, location.properties.lon]).addTo(leftMap);
+    console.log(`Location ${location}, Latitude ${location.properties.lat}, Longitute ${location.properties.long}`)
+  }
+})
+
+/*
 // Geoapify address search control
 const addressSearchControl = L.control.addressSearch(apiKEY, {
     position: 'topleft',
@@ -160,3 +184,4 @@ const addressSearchControl = L.control.addressSearch(apiKEY, {
 })
 leftMap.addControl(addressSearchControl);
 L.control.zoom({ position: 'bottomright' }).addTo(leftMap);
+*/
