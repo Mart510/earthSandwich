@@ -9,32 +9,16 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
 </head>
 <body>
-    <div><h1>Earth Sandwich</h1></div>
+    <h1>Earth Sandwich</h1>
+    <div id="mapHolder">
+        <!-- user location map -->
+        <div id="originMap" class="map">
+        </div>
+        <!-- antipode location map -->
+        <div id="antipodeMap" class="map"></div>
+    </div>
     <div class="autocomplete-panel">
         <div id="autocomplete" class="autocomplete-container"></div>
-    </div>
-    <div id="cardHolder">
-        <div class="card" >
-            <!-- autocomplete api card -->
-        </div>
-        <div class="card" >
-            <div class="card-content">
-                <h3>Your antipode</h3>
-                <br>
-                    <h5>Lattitude</h5>
-                    <h5 id="antiLat"></h5>
-                    <br>
-                    <h5>Longitude</h5>
-                    <h5 id="antiLong"></h5>
-                    <br>
-            </div>
-    </div>
-    </div>
-
-    <div id="mapHolder">
-        <!-- map element -->
-        <div id="originMap" class="map"></div>
-        <div id="antipodeMap" class="map"></div>
     </div>
     <!-- JS files -->
     <!-- Awaiting the html to load before the js starts -->

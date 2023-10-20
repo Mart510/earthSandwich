@@ -178,12 +178,11 @@ autoCompleteInput.on('select', (location) => {
     // console.log(`negaLat input: ${negaLat}`)
     // console.log(`negaLong input: ${negaLong}`)
     // update the numbers in the antipode box
-    latText.textContent = negaLat;
-    longText.textContent = negaLong;
+    // latText.textContent = negaLat;
+    // longText.textContent = negaLong;
     // update second map
     rightMap.setView[negaLat, negaLong, 3];
     negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
-    
 
     //originMarker = L.marker([location.properties.lat, location.properties.lon]).addTo(leftMap);
     //console.log(`Location ${location}, Latitude ${location.properties.lat}, Longitute ${location.properties.long}`)
