@@ -37,11 +37,11 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(rightMap);
 
 // styles the origin and antipode markers
-const originMarker = L.icon({
+let originMarker = L.icon({
     iconUrl: 'brebTop.png',
     iconSize: [50, 50]
 });
-const negaMarker = L.icon({
+let negaMarker = L.icon({
     iconUrl: 'brebBottom.png',
     iconSize: [50, 50]
 });
@@ -120,8 +120,8 @@ function handleSubmit(event) {
     let negaSpot = calculateAntipode(lat, long);
     console.log(`Antipode lat: ${negaSpot.latitude}\n Antipode long: ${negaSpot.longitude}`)
     // save calculated results to 6 decimal places
-    const negaLat = negaSpot.latitude.toFixed(6)
-    const negaLong = negaSpot.longitude.toFixed(6)
+    let negaLat = negaSpot.latitude.toFixed(6)
+    let negaLong = negaSpot.longitude.toFixed(6)
     // save lat and long to 6 decimal places
     const lat2 = lat.toFixed(6);
     const long2 = long.toFixed(6);
@@ -150,13 +150,43 @@ const autoCompleteInput = new GeocoderAutocomplete(document.getElementById('auto
 // autocomplete behaviour
 autoCompleteInput.on('select', (location) => {
   // check selected location here
-  if (originMarker) {
-    originMarker.remove();
-  }
+ // if (originMarker) {
+ //   originMarker.remove();
+ // }
 
   if (location) {
-    originMarker = L.marker([location.properties.lat, location.properties.lon]).addTo(leftMap);
-    console.log(`Location ${location}, Latitude ${location.properties.lat}, Longitute ${location.properties.long}`)
+    // debug logger
+    // console.log(`Location: ${location}`)
+    // console.log(`Location type: ${typeof(location)}`)
+    // console.log(`Location lat: ${location.properties.lat}`)
+    // console.log(`Location long: ${location.properties.lon}`)
+    // input storing
+    const latInput = location.properties.lat
+    const longInput = location.properties.lon
+    // debug logger
+    // console.log(`Lat input: ${latInput}`)
+    // console.log(`Long input: ${longInput}`)
+    // update map with users location
+    leftMap.setView[latInput, longInput, 3];
+    originPointer.setLatLng(new L.LatLng(latInput, longInput));
+
+    // calculate antipode location
+    const negaSpot = calculateAntipode(latInput, longInput);
+    const negaLat = negaSpot.latitude
+    const negaLong = negaSpot.longitude
+    // debug logger
+    // console.log(`negaLat input: ${negaLat}`)
+    // console.log(`negaLong input: ${negaLong}`)
+    // update the numbers in the antipode box
+    latText.textContent = negaLat;
+    longText.textContent = negaLong;
+    // update second map
+    rightMap.setView[negaLat, negaLong, 3];
+    negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
+    
+
+    //originMarker = L.marker([location.properties.lat, location.properties.lon]).addTo(leftMap);
+    //console.log(`Location ${location}, Latitude ${location.properties.lat}, Longitute ${location.properties.long}`)
   }
 })
 
