@@ -19,10 +19,25 @@ body {
         padding: 0;
     }
 
+    .mapbox {
+        display: flex;
+        flex-direction: column;
+        width: 42%
+    }
+
+    .maptitle {
+        font-family: 'Bevan', serif;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1.5em;
+        color: whitesmoke;
+        margin: 0;
+        padding: 0;
+        padding-bottom: .2rem;
+    }
+
     /* Leaflet CSS */
     .map { 
         height: 50vh;
-        width: 42%;;
         border-radius: 2%;
     }
     #mapHolder {

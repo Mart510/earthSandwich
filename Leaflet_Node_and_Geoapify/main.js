@@ -49,12 +49,12 @@ let negaMarker = L.icon({
 // sets a default marker on milton keynes
 const originPointer = L.marker([52.04, -.76], {icon: originMarker}).addTo(leftMap);
 // adding a popup to give user information at the marker
-originPointer.bindPopup("This is your location").openPopup();
+//originPointer.bindPopup("This is your location").openPopup();
 
 // sets a marker on the antipode for milton keynes
 const negaPointer = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMap);
 // pop up to give user information
-negaPointer.bindPopup('Earth sandwich location').openPopup();
+//negaPointer.bindPopup('Earth sandwich location').openPopup();
 
 ////////////////// Antipode calculation //////////////////
 // Milton Keynes, Lat = 52.04, Long = -0.76
@@ -182,6 +182,7 @@ autoCompleteInput.on('select', (location) => {
     // longText.textContent = negaLong;
     // update second map
     rightMap.setView[negaLat, negaLong, 3];
+    // set pointer
     negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
 
     //originMarker = L.marker([location.properties.lat, location.properties.lon]).addTo(leftMap);
