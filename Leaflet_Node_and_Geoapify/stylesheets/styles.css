@@ -18,14 +18,8 @@ body {
         margin: 0;
         padding: 0;
     }
-
-    .mapbox {
-        display: flex;
-        flex-direction: column;
-        width: 42%
-    }
-
-    .maptitle {
+    
+    h3 {
         font-family: 'Bevan', serif;
         font-family: 'IBM Plex Mono', monospace;
         font-size: 1.5em;
@@ -33,6 +27,53 @@ body {
         margin: 0;
         padding: 0;
         padding-bottom: .2rem;
+    }
+
+    p {
+        font-family: 'Bevan', serif;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1em;
+        color: whitesmoke;
+        margin: 0;
+        padding: 0;
+        padding-bottom: .2rem;
+        padding-top: .5rem;
+    }
+
+    /* styling for the link with a transition to improve visibility */
+    a {
+        color: whitesmoke;
+        box-shadow: inset 0 0 0 0 whitesmoke;
+        margin:  0 -.25rem;
+        padding:  0 .25rem;
+        transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+    }
+
+    a:hover {
+        box-shadow: inset 100rem 0 0 0 whitesmoke;
+        color: #05373b;
+    }
+    
+    .textBox {
+        width: 43%;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .line {
+        border-bottom: .05rem solid whitesmoke;
+        padding-top: .5rem;
+        width: 100%;
+        align-self: center;
+
+    }
+
+    .mapbox {
+        display: flex;
+        flex-direction: column;
+        width: 42%
     }
 
     /* Leaflet CSS */

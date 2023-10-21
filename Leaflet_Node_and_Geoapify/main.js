@@ -18,7 +18,11 @@ let marker = null;
 // debugger // console.log(`API key is ${geoApiKEY}`)
 
 // intialise map and position, [lattitude, longitude], zoomLevel
-const leftMap = L.map('originMap').setView([51.854210, -5.124250], 10)
+// default position
+const leftMap = L.map('originMap').setView([51.854210, -5.124250], 2)
+
+// intialises the right map, it's default view co-ords and zoom level
+const rightMap = L.map('antipodeMap').setView([51.854210, -5.124250], 2);
 
 // base layer of left map
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -26,35 +30,25 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     // adding geoapify into this
     apiKEY: geoApiKEY
-}).addTo(leftMap);
+  }).addTo(leftMap);
 
-// intialises the right map, it's default view co-ords and zoom level
-const rightMap = L.map('antipodeMap').setView([-52.04, 179.24], 3);
 
+// base layer of right map
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(rightMap);
+  }).addTo(rightMap);
 
 // styles the origin and antipode markers
 let originMarker = L.icon({
     iconUrl: 'brebTop.png',
-    iconSize: [50, 50]
+    iconSize: [32, 32]
 });
 let negaMarker = L.icon({
     iconUrl: 'brebBottom.png',
-    iconSize: [50, 50]
+    iconSize: [32, 32]
 });
 
-// sets a default marker on milton keynes
-const originPointer = L.marker([52.04, -.76], {icon: originMarker}).addTo(leftMap);
-// adding a popup to give user information at the marker
-//originPointer.bindPopup("This is your location").openPopup();
-
-// sets a marker on the antipode for milton keynes
-const negaPointer = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMap);
-// pop up to give user information
-//negaPointer.bindPopup('Earth sandwich location').openPopup();
 
 ////////////////// Antipode calculation //////////////////
 // Milton Keynes, Lat = 52.04, Long = -0.76
@@ -85,65 +79,6 @@ const negaPointer = L.marker([-52.04, 179.24], {icon: negaMarker}).addTo(rightMa
         };
       }
 
-      // test usage:
-      const latitude = 52.04; // Milton Keynes
-      const longitude = -.76; // Milton Keynes
-      const antipode = calculateAntipode(latitude, longitude);
-      // Expected return values are lat: -52.04 Long: 179.24
-
-      console.log("MK Antipode latitude:", antipode.latitude);
-      console.log("MK Antipode longitude:", antipode.longitude);
-
-
-// Gets for lat, long and submit
-const latInput = document.getElementById('lattitude');
-const longInput = document.getElementById('longitude');
-const submitButton = document.getElementById('submit');
-
-// text elements
-let latText = document.getElementById("antiLat")
-let longText = document.getElementById("antiLong")
-
-// call my function
-function handleSubmit(event) {
-  event.preventDefault();
-  console.log("button clicked")
-
-  const lat = parseFloat(latInput.value)
-  console.log(`lat input is: ${latInput.value}`)
-  const long = parseFloat(longInput.value)
-  console.log(`long input is: ${longInput.value}`)
-
-
-  if(!isNaN(lat) && !isNaN(long)) {// checking that lat and long ar numbers
-  console.log(`Passes number checker`)
-    let negaSpot = calculateAntipode(lat, long);
-    console.log(`Antipode lat: ${negaSpot.latitude}\n Antipode long: ${negaSpot.longitude}`)
-    // save calculated results to 6 decimal places
-    let negaLat = negaSpot.latitude.toFixed(6)
-    let negaLong = negaSpot.longitude.toFixed(6)
-    // save lat and long to 6 decimal places
-    const lat2 = lat.toFixed(6);
-    const long2 = long.toFixed(6);
-
-    // update the numbers in the antipode box
-    latText.textContent = negaLat;
-    longText.textContent = negaLong;
-
-    // update the origin and antipode maps
-    // origin map
-    leftMap.setView[lat2, long2, 3];
-    originPointer.setLatLng(new L.LatLng(lat2, long2));
-
-    // antipode map
-    rightMap.setView[negaLat, negaLong, 3];
-    negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
-  }
-};
-
-//
-//submitButton.addEventListener('click', handleSubmit);
-
 // check avalible automcomplete options
 const autoCompleteInput = new GeocoderAutocomplete(document.getElementById('autocomplete'), geoApiKEY);
 
@@ -155,63 +90,48 @@ autoCompleteInput.on('select', (location) => {
  // }
 
   if (location) {
-    // debug logger
-    // console.log(`Location: ${location}`)
-    // console.log(`Location type: ${typeof(location)}`)
-    // console.log(`Location lat: ${location.properties.lat}`)
-    // console.log(`Location long: ${location.properties.lon}`)
+
     // input storing
-    const latInput = location.properties.lat
-    const longInput = location.properties.lon
-    // debug logger
-    // console.log(`Lat input: ${latInput}`)
-    // console.log(`Long input: ${longInput}`)
-    // update map with users location
-    leftMap.setView[latInput, longInput, 3];
-    originPointer.setLatLng(new L.LatLng(latInput, longInput));
+    const latInput = parseFloat(location.properties.lat)
+    const longInput = parseFloat(location.properties.lon)
+
+    // logger
+    console.log(`Location selected: ${location.properties.city}`);
+    console.log(`Latitude: ${latInput}`);
+    console.log(`Longitude: ${longInput}`);
 
     // calculate antipode location
     const negaSpot = calculateAntipode(latInput, longInput);
     const negaLat = negaSpot.latitude
     const negaLong = negaSpot.longitude
-    // debug logger
-    // console.log(`negaLat input: ${negaLat}`)
-    // console.log(`negaLong input: ${negaLong}`)
-    // update the numbers in the antipode box
-    // latText.textContent = negaLat;
-    // longText.textContent = negaLong;
-    // update second map
-    rightMap.setView[negaLat, negaLong, 3];
-    // set pointer
-    negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
 
-    //originMarker = L.marker([location.properties.lat, location.properties.lon]).addTo(leftMap);
-    //console.log(`Location ${location}, Latitude ${location.properties.lat}, Longitute ${location.properties.long}`)
+    // Antipode logger
+    console.log(`Antipode Latitude: ${negaLat}`);
+    console.log(`Antipode Longitude: ${negaLong}`);
+
+    // map update animation options
+    const panimate = {
+      animate: true, // makes it animate
+      duration: 4, // time in seconds
+      easeLinearity: .1 // ease factor
+    }
+
+    // create pointer at location
+    const originPointer = L.marker([latInput, longInput], {icon: originMarker}).addTo(leftMap);
+
+    // set pointer at location
+    originPointer.setLatLng(new L.LatLng(latInput, longInput));
+
+  // update map with users location
+    // Pan
+    leftMap.flyTo([latInput, longInput], 10, panimate);
+
+    // create pointer at antipode location
+    const negaPointer = L.marker([negaLat, negaLong], {icon: negaMarker}).addTo(rightMap);
+
+    // set pointer at antipode location
+    negaPointer.setLatLng(new L.LatLng(negaLat, negaLong));
+    // update second map
+    rightMap.flyTo([negaLat, negaLong], 10, panimate);
   }
 })
-
-/*
-// Geoapify address search control
-const addressSearchControl = L.control.addressSearch(apiKEY, {
-    position: 'topleft',
-    requestCallback: (address) => {
-        if (marker) {
-            marker.remove();
-        }
-        if (!address) {
-            return;
-        }
-        marker = L.marker([address.lat, address.lon]).addTo(leftMap);
-        if (address.bbox && address.bbox.lat1 !== address.bbox.lat2 && address.bbox.lon1 !== address.bbox.lon2) {
-          leftMap.fitBounds([[address.bbox.lat1, address.bbox.lon1], [address.bbox.lat2, address.bbox.lon2]], { padding: [100, 100] })
-        } else {
-          leftMap.setView([address.lat, address.lon], 15);
-        }
-      },
-      suggestionsCallback: (suggestions) => {
-        console.log(suggestions);
-    }
-})
-leftMap.addControl(addressSearchControl);
-L.control.zoom({ position: 'bottomright' }).addTo(leftMap);
-*/
