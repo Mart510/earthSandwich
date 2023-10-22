@@ -2,6 +2,8 @@
 
 Earth Sandwich is a web application that simplifies the challenge of creating the perfect global sandwich by helping you locate the exact opposite side of the Earth from your location. It's a fun and educational tool inspired by Ze Frank's global sandwich challenge.
 
+![ScreenShot from the app](image.png)
+
 ## Features
 
 - **Effortless Geolocation**: Earth Sandwich utilizes geocoding and autocomplete features, allowing you to input any address, and it will calculate the precise latitude and longitude coordinates for both you and your "sandwich" location.
