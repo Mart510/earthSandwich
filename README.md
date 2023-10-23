@@ -2,6 +2,8 @@
 
 Earth Sandwich is a web application that simplifies the challenge of creating the perfect global sandwich by helping you locate the exact opposite side of the Earth from your location. It's a fun and educational tool inspired by Ze Frank's global sandwich challenge.
 
+A version of the app is live on **[Netlify here.](https://earth-sandwich.netlify.app/)**
+
 ![ScreenShot from the app](image.png)
 
 ## Features
@@ -39,7 +41,7 @@ npm run dev
 Roadmap includes:
 - Integrate geocoding for address lookups, eliminating the need for manual latitude and longitude inputs.
 - Allow location selection by selecting a point on the map
-- 3d graphical display using D3.
+- 3d graphical display using 3js.
 
 ## Contributors
 
